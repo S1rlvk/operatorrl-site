@@ -4,4 +4,4 @@ Live Kubernetes episodes that grade AI operations agents on two things: whether 
 
 Website: https://s1rlvk.github.io/operatorrl-site/
 
-The open-source practice episodes, grader and runner will be published in this repository soon. Questions: open a GitHub issue.
+The open-source practice episodes, grader and runner are at https://github.com/S1rlvk/operatorrl-episodes. Questions: open a GitHub issue.
