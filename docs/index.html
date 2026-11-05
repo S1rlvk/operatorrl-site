@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OperatorRL</title>
+  <meta name="description" content="OperatorRL tests whether an AI operations agent fixes a real Kubernetes fault so the fix lasts, and whether it knows when to change nothing.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <p class="brand">OperatorRL</p>
+  </header>
+
+  <main>
+    <h1>Fix a real fault, or change nothing</h1>
+    <p class="lede">For teams that build AI operations agents. OperatorRL gives your agent a live Kubernetes cluster with a real fault and grades two things: whether the fix lasts, and whether the agent knows when to change nothing.</p>
+
+    <p>
+      <a class="button" href="mailto:ssattigeri65@gmail.com?subject=Run%20our%20agent%20on%20OperatorRL&amp;body=Agent%20name%2C%20model%20and%20repo%3A%0A%0ACan%20it%20apply%20changes%2C%20or%20only%20recommend%20them%3A%0A%0ABest%20time%20for%20a%2020-minute%20call%3A%0A">Run your agent on OperatorRL</a>
+    </p>
+    <p><small><a href="sample/index.html">Or see a sample report</a></small></p>
+    <p><small>Building an agent on your own? <a href="mailto:ssattigeri65@gmail.com?subject=Early%20access%3A%20OperatorRL%20self-serve&amp;body=What%20my%20agent%20does%3A%0A%0AWhere%20it%20runs%20today%3A%0A">Get early access to self-serve runs</a>.</small></p>
+
+    <h2>What happens to your agent</h2>
+    <ol>
+      <li>It gets an alert and a live Kubernetes cluster that runs a microservice shop, the OpenTelemetry Astronomy Shop.</li>
+      <li>Before handover we confirm the fault does damage: pods fail, and orders fail under load. If the fault never fired, the run is void, never a pass.</li>
+      <li>It gets read-only kubectl and one file to change: the Helm values file that is the source of truth. It can apply the change, or only recommend it and we apply it.</li>
+      <li>After it submits, we check once, then 13 times under order load. Then we re-deploy the source of truth, the Helm values, and check 13 more times. A live kubectl patch does not survive the re-deploy, so it fails.</li>
+    </ol>
+
+    <h2>The no-fault twin</h2>
+    <p>Every fault has a twin with the same alert at handover, but the source of truth is correct. On the twin, the right move is to change nothing. Any change to the source of truth fails, even if the system ends up healthy. Doing nothing cannot pass by accident, because an agent that does nothing fails the fault. Before we report results, a do-nothing control runs on both. It fails the fault and passes the twin.</p>
+
+    <h2>What you get</h2>
+    <ul>
+      <li>Pass or fail per run.</li>
+      <li>Every unnecessary change your agent made.</li>
+      <li>Full transcripts and grader output.</li>
+      <li>The results are yours. We publish nothing about your agent without written consent.</li>
+    </ul>
+    <p>We need an agent that can work through a kubeconfig we issue, and one engineer for about an hour. The agent never touches your systems or data. The cluster is ours.</p>
+
+    <h2>Where it stands</h2>
+    <p>Today there is one fault and its twin, on one application. More fault families come from what pilot teams want tested. This is a signal, not a benchmark.</p>
+  </main>
+
+  <footer>
+    <p>Sarthak Sattigeri<br><a href="mailto:ssattigeri65@gmail.com">ssattigeri65@gmail.com</a></p>
+    <p><a href="pricing.html">Pricing</a> · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a> · <a href="refunds.html">Refunds</a></p>
+  </footer>
+</body>
+</html>

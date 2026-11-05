@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scripted control: does nothing · E-001 - OperatorRL sample report</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<main>
+<p><a href="index.html">All sample reports</a></p>
+<h1>Scripted control: does nothing · E-001</h1>
+<div class="verdict"><span class="fail">FAIL</span> <span class="muted">no change made, the fault was still present at the first check</span></div>
+<p class="muted">This control checks that doing nothing fails a real fault.</p>
+<h2>What the agent was given</h2>
+<ul>
+<li>Episode: E-001 (fault)</li>
+<li>It could change the values file and apply it itself.</li>
+<li>Symptom at handover: the checkout service is OOMKilled</li>
+</ul>
+<h2>What the agent did</h2>
+<p>It changed nothing.</p>
+<h2>How the grader decided</h2>
+<table>
+<tr><th>Phase</th><th>Checks passed</th><th>Result</th></tr>
+<tr><td>Immediate</td><td>0 of 1</td><td><span class="fail">fail</span></td></tr>
+<tr><td>Sustained under load</td><td>0 of 13</td><td><span class="fail">fail</span></td></tr>
+<tr><td>After re-apply</td><td>0 of 13</td><td><span class="fail">fail</span></td></tr>
+</table>
+<h3>Failed predicates</h3>
+<ul>
+<li><code>checkout_order</code> first failed in the immediate phase: checkout returns an order id, tracking id and items | POST /api/cart -&gt; 200; POST /api/checkout -&gt; 500</li>
+</ul>
+<details>
+<summary>Raw verdict</summary>
+<pre>{
+  &quot;abstained&quot;: null,
+  &quot;admission_class&quot;: &quot;fault&quot;,
+  &quot;counts_toward_gate&quot;: true,
+  &quot;damage&quot;: {
+    &quot;confirmed&quot;: true,
+    &quot;failed_checkout_fraction&quot;: 1.0,
+    &quot;handover_witness&quot;: {
+      &quot;confirmed&quot;: true,
+      &quot;damage&quot;: {
+        &quot;confirmed&quot;: true,
+        &quot;failed_checkout_fraction&quot;: 0.769,
+        &quot;oom_killed_seen&quot;: true,
+        &quot;sustained_evaluations&quot;: 13
+      },
+      &quot;error&quot;: null,
+      &quot;path&quot;: &quot;[redacted]&quot;,
+      &quot;started_at&quot;: &quot;2026-10-31T05:33:19Z&quot;
+    },
+    &quot;oom_killed_seen&quot;: true,
+    &quot;sustained_evaluations&quot;: 13
+  },
+  &quot;damage_confirmed&quot;: true,
+  &quot;diagnostics&quot;: {
+    &quot;checkout_image&quot;: &quot;ghcr.io/open-telemetry/demo:3.0.0-checkout&quot;,
+    &quot;checkout_memory_limit_at_verdict&quot;: &quot;10Mi&quot;,
+    &quot;checkout_pods&quot;: {
+      &quot;pods&quot;: [
+        {
+          &quot;last_exit_code&quot;: 137,
+          &quot;last_termination_reason&quot;: &quot;OOMKilled&quot;,
+          &quot;name&quot;: &quot;checkout-69959fbcb7-r9zhs&quot;,
+          &quot;restarts&quot;: 5
+        }
+      ],
+      &quot;restarts_total&quot;: 5
+    },
+    &quot;in_cluster_load_generator_replicas&quot;: 1
+  },
+  &quot;durable_ok&quot;: false,
+  &quot;durable_parts&quot;: {
+    &quot;immediate_ok&quot;: false,
+    &quot;post_reapply_window_ok&quot;: false,
+    &quot;reapply_ok&quot;: true,
+    &quot;rollout_complete&quot;: true,
+    &quot;sustained_ok&quot;: false
+  },
+  &quot;episode&quot;: {
+    &quot;chart&quot;: &quot;open-telemetry/opentelemetry-demo&quot;,
+    &quot;chart_version&quot;: &quot;0.41.2&quot;,
+    &quot;context&quot;: &quot;kind-opr-dev&quot;,
+    &quot;id&quot;: &quot;E-001&quot;,
+    &quot;namespace&quot;: &quot;otel-demo&quot;,
+    &quot;release&quot;: &quot;operatorrl&quot;,
+    &quot;source_of_truth&quot;: &quot;[redacted]&quot;,
+    &quot;source_of_truth_sha256&quot;: &quot;6dff06f4c31bade61bedaf5322d4579644233ad4d3f39719ced9a4dd453f2f97&quot;
+  },
+  &quot;errors&quot;: [],
+  &quot;fault_episode&quot;: true,
+  &quot;health_ok&quot;: false,
+  &quot;immediate_ok&quot;: false,
+  &quot;intervention&quot;: null,
+  &quot;note&quot;: &quot;&quot;,
+  &quot;pod_identity_flagged&quot;: false,
+  &quot;predicates&quot;: {
+    &quot;ads&quot;: {
+      &quot;evaluations&quot;: 27,
+      &quot;failures&quot;: 0,
+      &quot;first_failure&quot;: null,
+      &quot;passes&quot;: 27
+    },
+    &quot;browse_catalog&quot;: {
+      &quot;evaluations&quot;: 27,
+      &quot;failures&quot;: 0,
+      &quot;first_failure&quot;: null,
+      &quot;passes&quot;: 27
+    },
+    &quot;browse_product&quot;: {
+      &quot;evaluations&quot;: 27,
+      &quot;failures&quot;: 0,
+      &quot;first_failure&quot;: null,
+      &quot;passes&quot;: 27
+    },
+    &quot;cart_write_read&quot;: {
+      &quot;evaluations&quot;: 27,
+      &quot;failures&quot;: 0,
+      &quot;first_failure&quot;: null,
+      &quot;passes&quot;: 27
+    },
+    &quot;checkout_order&quot;: {
+      &quot;evaluations&quot;: 27,
+      &quot;failures&quot;: 27,
+      &quot;first_failure&quot;: {
+        &quot;detail&quot;: &quot;checkout returns an order id, tracking id and items | POST /api/cart -&gt; 200 body=&#x27;{\&quot;userId\&quot;:\&quot;2fd78a32-b252-47f5-b430-3127bdba50d1\&quot;,\&quot;items\&quot;:[{\&quot;productId\&quot;:\&quot;L9ECAV7KIM\&quot;,\&quot;quantity\&quot;:1}]}&#x27;; POST /api/checkout -&gt; 500 body=&#x27;Internal Server Error&#x27;&quot;,
+        &quot;phase&quot;: &quot;immediate&quot;,
+        &quot;t&quot;: 0.1
+      },
+      &quot;passes&quot;: 0
+    },
+    &quot;recommendations&quot;: {
+      &quot;evaluations&quot;: 27,
+      &quot;failures&quot;: 0,
+      &quot;first_failure&quot;: null,
+      &quot;passes&quot;: 27
+    },
+    &quot;storefront_index&quot;: {
+      &quot;evaluations&quot;: 27,
+      &quot;failures&quot;: 0,
+      &quot;first_failure&quot;: null,
+      &quot;passes&quot;: 27
+    }
+  },
+  &quot;reapply_guard&quot;: {
+    &quot;reasons&quot;: [],
+    &quot;verdict&quot;: &quot;accept&quot;
+  },
+  &quot;reference&quot;: false,
+  &quot;source_only&quot;: null,
+  &quot;sustained_ok&quot;: false,
+  &quot;void&quot;: false,
+  &quot;wall_s&quot;: {
+    &quot;durable&quot;: 373.4,
+    &quot;immediate&quot;: 60.4,
+    &quot;reapply&quot;: 2.9,
+    &quot;sustained&quot;: 362.8,
+    &quot;total&quot;: 799.5
+  }
+}</pre>
+</details>
+<p><a class="button" href="../index.html">Run your agent on OperatorRL</a></p>
+</main>
+</body>
+</html>

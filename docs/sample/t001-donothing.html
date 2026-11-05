@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scripted control: does nothing · T-001 - OperatorRL sample report</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<main>
+<p><a href="index.html">All sample reports</a></p>
+<h1>Scripted control: does nothing · T-001</h1>
+<div class="verdict"><span class="pass">PASS</span> <span class="muted">source of truth unchanged, healthy after the drift cleared</span></div>
+<p class="muted">This control checks that doing nothing passes the twin. The same control fails E-001, so the pair rewards telling a fault from a healthy system, not doing nothing.</p>
+<h2>What the agent was given</h2>
+<ul>
+<li>Episode: T-001 (no-fault)</li>
+<li>It could only recommend a change to the values file. We apply the recommendation.</li>
+<li>Symptom at handover: the checkout service is OOMKilled, the same alert as E-001. The values file is correct. A live change caused the alert, and it reverts without any action</li>
+</ul>
+<h2>What the agent did</h2>
+<p>It recommended no change.</p>
+<h2>How the grader decided</h2>
+<table>
+<tr><th>Phase</th><th>Checks passed</th><th>Result</th></tr>
+<tr><td>Immediate</td><td>1 of 1</td><td><span class="pass">pass</span></td></tr>
+<tr><td>Sustained under load</td><td>13 of 13</td><td><span class="pass">pass</span></td></tr>
+<tr><td>After re-apply</td><td>13 of 13</td><td><span class="pass">pass</span></td></tr>
+</table>
+
+<details>
+<summary>Raw verdict</summary>
+<pre>{
+  &quot;abstained&quot;: true,
+  &quot;admission_class&quot;: &quot;no-fault&quot;,
+  &quot;counts_toward_gate&quot;: true,
+  &quot;damage&quot;: {
+    &quot;confirmed&quot;: false,
+    &quot;failed_checkout_fraction&quot;: 0.0,
+    &quot;oom_killed_seen&quot;: false,
+    &quot;sustained_evaluations&quot;: 13
+  },
+  &quot;damage_confirmed&quot;: false,
+  &quot;diagnostics&quot;: {
+    &quot;checkout_image&quot;: &quot;ghcr.io/open-telemetry/demo:3.0.0-checkout&quot;,
+    &quot;checkout_memory_limit_at_verdict&quot;: &quot;20Mi&quot;,
+    &quot;checkout_pods&quot;: {
+      &quot;pods&quot;: [
+        {
+          &quot;last_exit_code&quot;: null,
+          &quot;last_termination_reason&quot;: null,
+          &quot;name&quot;: &quot;checkout-7659ffbb47-bgm52&quot;,
+          &quot;restarts&quot;: 0
+        }
+      ],
+      &quot;restarts_total&quot;: 0
+    },
+    &quot;in_cluster_load_generator_replicas&quot;: 1
+  },
+  &quot;durable_ok&quot;: true,
+  &quot;durable_parts&quot;: {
+    &quot;immediate_ok&quot;: true,
+    &quot;post_reapply_window_ok&quot;: true,
+    &quot;reapply_ok&quot;: true,
+    &quot;rollout_complete&quot;: true,
+    &quot;sustained_ok&quot;: true
+  },
+  &quot;episode&quot;: {
+    &quot;chart&quot;: &quot;open-telemetry/opentelemetry-demo&quot;,
+    &quot;chart_version&quot;: &quot;0.41.2&quot;,
+    &quot;context&quot;: &quot;kind-opr-dev&quot;,
+    &quot;id&quot;: &quot;T-001&quot;,
+    &quot;namespace&quot;: &quot;otel-demo&quot;,
+    &quot;release&quot;: &quot;operatorrl&quot;,
+    &quot;source_of_truth&quot;: &quot;[redacted]&quot;,
+    &quot;source_of_truth_sha256&quot;: &quot;eba65ffecfba1796508bee1fcefd73fff515a98e1f60201e77624b83ab6b5d2a&quot;
+  },
+  &quot;errors&quot;: [],
+  &quot;fault_episode&quot;: false,
+  &quot;health_ok&quot;: true,
+  &quot;immediate_ok&quot;: true,
+  &quot;intervention&quot;: {
+    &quot;changed_paths&quot;: [],
+    &quot;handover_sha256&quot;: &quot;7ab81ce8764895d4f1f42e4e7fd2945af463c40c587a6d63e163fbe55db56f3a&quot;,
+    &quot;source_changed&quot;: false,
+    &quot;source_sha256&quot;: &quot;eba65ffecfba1796508bee1fcefd73fff515a98e1f60201e77624b83ab6b5d2a&quot;
+  },
+  &quot;note&quot;: &quot;&quot;,
+  &quot;pod_identity_flagged&quot;: false,
+  &quot;predicates&quot;: {
+    &quot;ads&quot;: {
+      &quot;evaluations&quot;: 27,
+      &quot;failures&quot;: 0,
+      &quot;first_failure&quot;: null,
+      &quot;passes&quot;: 27
+    },
+    &quot;browse_catalog&quot;: {
+      &quot;evaluations&quot;: 27,
+      &quot;failures&quot;: 0,
+      &quot;first_failure&quot;: null,
+      &quot;passes&quot;: 27
+    },
+    &quot;browse_product&quot;: {
+      &quot;evaluations&quot;: 27,
+      &quot;failures&quot;: 0,
+      &quot;first_failure&quot;: null,
+      &quot;passes&quot;: 27
+    },
+    &quot;cart_write_read&quot;: {
+      &quot;evaluations&quot;: 27,
+      &quot;failures&quot;: 0,
+      &quot;first_failure&quot;: null,
+      &quot;passes&quot;: 27
+    },
+    &quot;checkout_order&quot;: {
+      &quot;evaluations&quot;: 27,
+      &quot;failures&quot;: 0,
+      &quot;first_failure&quot;: null,
+      &quot;passes&quot;: 27
+    },
+    &quot;recommendations&quot;: {
+      &quot;evaluations&quot;: 27,
+      &quot;failures&quot;: 0,
+      &quot;first_failure&quot;: null,
+      &quot;passes&quot;: 27
+    },
+    &quot;storefront_index&quot;: {
+      &quot;evaluations&quot;: 27,
+      &quot;failures&quot;: 0,
+      &quot;first_failure&quot;: null,
+      &quot;passes&quot;: 27
+    }
+  },
+  &quot;reapply_guard&quot;: {
+    &quot;reasons&quot;: [],
+    &quot;verdict&quot;: &quot;accept&quot;
+  },
+  &quot;reference&quot;: false,
+  &quot;source_only&quot;: null,
+  &quot;sustained_ok&quot;: true,
+  &quot;void&quot;: false,
+  &quot;wall_s&quot;: {
+    &quot;durable&quot;: 195.3,
+    &quot;immediate&quot;: 5.2,
+    &quot;reapply&quot;: 2.6,
+    &quot;sustained&quot;: 186.6,
+    &quot;total&quot;: 389.7
+  }
+}</pre>
+</details>
+<p><a class="button" href="../index.html">Run your agent on OperatorRL</a></p>
+</main>
+</body>
+</html>
